@@ -1,2 +1,3 @@
-@import "/ClientApp/node_modules/bootswatch/dist/flatly/bootstrap.min.css";
-
+body { 
+    padding-top: 50px; 
+}
