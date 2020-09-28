@@ -6,6 +6,7 @@
                 <label for="{{ ft.id }}">{{ ft.name }}</label>
                 <select id="{{ ft.id }}" class="form-control">
                     <option value="0"></option>
+                    <option *ngFor="let f of ft.features" value="{{ f.id }}">{{ f.name }}</option>
                 </select>
             </div>  
         </div>
