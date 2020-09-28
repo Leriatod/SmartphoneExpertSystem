@@ -6,10 +6,11 @@ namespace PhoneExp.Mapping
 {
     public class MappingProfile : Profile
     {
-        // DOMAIN TO API DTO
         public MappingProfile()
         {
+            // DOMAIN TO API DTO
             CreateMap<FeatureType, FeatureTypeDto>();
+            CreateMap<Feature, FeatureDto>();
         }
     }
 }

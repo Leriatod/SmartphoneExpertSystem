@@ -22,7 +22,9 @@ namespace PhoneExp.Controllers
         [Route("/api/featuretypes")]
         public async Task<IActionResult> GetAsync()
         {
-            var featureTypes = await _context.FeatureTypes.ToListAsync();
+            var featureTypes = await _context.FeatureTypes
+                .Include(ft => ft.Features)
+                .ToListAsync();
             return Ok(_mapper.Map<List<FeatureType>, List<FeatureTypeDto>>(featureTypes));
         }
     }
