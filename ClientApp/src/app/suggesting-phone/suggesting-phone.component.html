@@ -1,1 +1,13 @@
-<p>suggesting-phone works!</p>
+<form>
+    <div class="col-md-6">
+        <h1>Select Your Phone Features</h1>
+        <div class="card card-body bg-light" *ngIf="$featureTypes | async as featureTypes">
+            <div *ngFor="let ft of featureTypes" class="form-group">
+                <label for="{{ ft.id }}">{{ ft.name }}</label>
+                <select id="{{ ft.id }}" class="form-control">
+                    <option value="0"></option>
+                </select>
+            </div>  
+        </div>
+    </div>
+</form>
