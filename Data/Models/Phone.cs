@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PhoneExp.Data.Models
@@ -14,5 +16,11 @@ namespace PhoneExp.Data.Models
         [Required]
         [StringLength(255)]
         public string ImageUrl { get; set; }
+        public ICollection<PhoneFeature> Features { get; set; }
+
+        public Phone()
+        {
+            Features = new Collection<PhoneFeature>();
+        }
     }
 }
