@@ -60,7 +60,7 @@ namespace PhoneExp.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.Sql("DELETE FROM Features");
         }
     }
 }
