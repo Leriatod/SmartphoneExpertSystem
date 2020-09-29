@@ -11,6 +11,9 @@ import { forkJoin } from 'rxjs';
 export class SuggestingPhoneComponent implements OnInit {
   featureTypes : any[];
   phones : any[];
+  displayedPhones: any[];
+  filter : any = {};
+
   constructor(private featureService: FeatureTypesService,
               private phoneService: PhonesService) { }
 
@@ -20,7 +23,24 @@ export class SuggestingPhoneComponent implements OnInit {
       this.phoneService.getAll()
     ]).subscribe((data : any) => {
       this.featureTypes = data[0];
-      this.phones = data[1]
+      this.phones = this.displayedPhones = data[1];
     });
   }
+
+  resetFilter() {
+    this.filter = {};
+    this.onFeatureChange();
+  }
+
+  onFeatureChange() {
+    this.displayedPhones = this.phones;
+    for (let featureTypeId in this.filter) {
+      var featureId = parseInt(this.filter[featureTypeId]);
+      if (featureId === 0) continue;
+      this.displayedPhones = this.displayedPhones
+        .filter(p =>  p.featuresIds.indexOf(featureId) > -1);
+    }
+  }
+
+
 }

@@ -6,20 +6,22 @@
         <div class="card card-body bg-light" *ngIf="featureTypes">
             <div *ngFor="let ft of featureTypes" class="form-group">
                 <label for="{{ ft.id }}">{{ ft.name }}</label>
-                <select id="{{ ft.id }}" class="form-control">
+                <select id="{{ ft.id }}" [(ngModel)]="filter[ft.id]" (change)="onFeatureChange()" class="form-control">
                     <option value="0"></option>
                     <option *ngFor="let f of ft.features" value="{{ f.id }}">{{ f.name }}</option>
                 </select>
             </div>  
+            <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
         </div>
-
     </div>
     <div class="col-md-6">
         <h1 class="text-right">Phone List</h1>
-        <spinner [visible]="!phones"></spinner>
-
-        <div class="card card-body bg-light" *ngIf="phones">
-            <div *ngFor="let p of phones; index as i" [class.phone-item]="i > 0" class="media">
+        <spinner [visible]="!displayedPhones"></spinner>
+        <h3 class="text-right" *ngIf="displayedPhones && displayedPhones.length === 0">
+            No phone found that matches your criteria.
+        </h3>
+        <div class="card card-body bg-light" *ngIf="displayedPhones && displayedPhones.length > 0">
+            <div *ngFor="let p of displayedPhones; index as i" [class.phone-item]="i > 0" class="media">
                 <img class="mr-3" src="{{ p.imageUrl }}">
                 <div class="media-body">
                   <h5 class="mt-0">{{ p.name }}</h5>
