@@ -1,8 +1,9 @@
-<form>
+<div class="row">
     <div class="col-md-6">
         <h1>Select Your Phone Features</h1>
-        <spinner [visible]="!($featureTypes | async)"></spinner>
-        <div class="card card-body bg-light" *ngIf="$featureTypes | async as featureTypes">
+        <spinner [visible]="!featureTypes"></spinner>
+
+        <div class="card card-body bg-light" *ngIf="featureTypes">
             <div *ngFor="let ft of featureTypes" class="form-group">
                 <label for="{{ ft.id }}">{{ ft.name }}</label>
                 <select id="{{ ft.id }}" class="form-control">
@@ -11,5 +12,21 @@
                 </select>
             </div>  
         </div>
+
     </div>
-</form>
+    <div class="col-md-6">
+        <h1 class="text-right">Phone List</h1>
+        <spinner [visible]="!phones"></spinner>
+
+        <div class="card card-body bg-light" *ngIf="phones">
+            <div *ngFor="let p of phones; index as i" [class.phone-item]="i > 0" class="media">
+                <img class="mr-3" src="{{ p.imageUrl }}">
+                <div class="media-body">
+                  <h5 class="mt-0">{{ p.name }}</h5>
+                  <a href="{{ p.descriptionUrl }}">Click to find out more details.</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

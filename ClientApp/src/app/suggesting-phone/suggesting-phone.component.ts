@@ -1,18 +1,26 @@
+import { PhonesService } from './../phones.service';
 import { Component, OnInit } from '@angular/core';
 import { FeatureTypesService } from '../feature-types.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'app-suggesting-phone',
+  selector: 'suggesting-phone',
   templateUrl: './suggesting-phone.component.html',
   styleUrls: ['./suggesting-phone.component.css']
 })
 export class SuggestingPhoneComponent implements OnInit {
-  $featureTypes;
-  
-  constructor(private featureService: FeatureTypesService) { }
+  featureTypes : any[];
+  phones : any[];
+  constructor(private featureService: FeatureTypesService,
+              private phoneService: PhonesService) { }
 
   ngOnInit() {
-    this.$featureTypes = this.featureService.getAll();
+    forkJoin([
+      this.featureService.getAll(),
+      this.phoneService.getAll()
+    ]).subscribe((data : any) => {
+      this.featureTypes = data[0];
+      this.phones = data[1]
+    });
   }
-
 }
